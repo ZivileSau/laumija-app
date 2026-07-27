@@ -134,30 +134,28 @@ main {
 .page-shell img:not([src]), .supplement-page img:not([src]) { display: none; }
 
 .controls {
-  position: sticky;
-  z-index: 12;
-  bottom: calc(14px + env(safe-area-inset-bottom));
-  min-height: 82px;
+  width: calc(100% - 28px);
+  min-height: 64px;
   display: grid;
-  grid-template-columns: 64px 1fr 64px;
+  grid-template-columns: 48px 1fr 48px;
   align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-  padding: 8px 10px;
-  border-radius: 42px;
+  gap: 9px;
+  margin: 10px auto 0;
+  padding: 7px 8px;
+  border-radius: 34px;
   color: #fffaf0;
   background: var(--brown);
   box-shadow: 0 8px 24px rgba(43, 27, 22, .2);
 }
 
 .arrow {
-  width: 58px;
-  height: 58px;
+  width: 48px;
+  height: 48px;
   border: 1px solid rgba(255,255,255,.24);
   border-radius: 50%;
   color: inherit;
   background: rgba(255,255,255,.07);
-  font: 300 42px/1 Georgia, serif;
+  font: 300 34px/1 Georgia, serif;
 }
 
 .arrow:disabled { opacity: .28; }
@@ -166,6 +164,7 @@ main {
 .page-info strong { font-size: 15px; }
 .page-info span { margin-top: 4px; font-size: 12px; opacity: .78; }
 .release-note { margin: 12px 10px 0; text-align: center; font: 13px/1.45 system-ui, sans-serif; color: #685f4d; }
+.reader { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
 
 .prelaunch {
   min-height: calc(100vh - 125px);
