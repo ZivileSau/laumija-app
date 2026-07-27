@@ -134,6 +134,9 @@ main {
 .page-shell img:not([src]), .supplement-page img:not([src]) { display: none; }
 
 .controls {
+  position: sticky;
+  z-index: 12;
+  bottom: calc(14px + env(safe-area-inset-bottom));
   min-height: 82px;
   display: grid;
   grid-template-columns: 64px 1fr 64px;
