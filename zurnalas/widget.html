@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="lt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laumijos žurnalas</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      background: transparent;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .widget {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .week-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .side-actions {
+      position: absolute;
+      z-index: 4;
+      top: 15%;
+      right: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .side-button {
+      width: 66px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-right: 0;
+      border-radius: 30px 0 0 30px;
+      color: #fff9ed;
+      text-decoration: none;
+      background: rgba(90, 59, 51, 0.96);
+      box-shadow: 0 8px 20px rgba(48, 29, 23, 0.24);
+      font: 25px/1 "Segoe UI Emoji", sans-serif;
+    }
+
+    .week-navigation {
+      position: absolute;
+      z-index: 3;
+      right: 12px;
+      bottom: 12px;
+      left: 12px;
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 28px;
+      color: #fff9ed;
+      background: rgba(90, 59, 51, 0.92);
+      box-shadow: 0 7px 20px rgba(48, 29, 23, 0.2);
+    }
+
+    .arrow {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      color: inherit;
+      background: rgba(255, 255, 255, 0.08);
+      font: 30px/1 Georgia, serif;
+    }
+
+    .arrow:disabled {
+      opacity: 0.28;
+    }
+
+    .week-info {
+      min-width: 0;
+      text-align: center;
+      font: 600 12px/1.25 system-ui, sans-serif;
+    }
+
+    .week-info strong,
+    .week-info span {
+      display: block;
+    }
+
+    .week-info strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .week-info span {
+      margin-top: 3px;
+      opacity: 0.75;
+      font-size: 10px;
+    }
+
+    .locked {
+      position: absolute;
+      z-index: 5;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      padding: 28px;
+      text-align: center;
+      color: #5a3b33;
+      background: rgba(247, 240, 224, 0.9);
+      backdrop-filter: blur(7px);
+      font-family: Georgia, serif;
+    }
+
+    .locked[hidden] {
+      display: none;
+    }
+
+    .locked span {
+      color: #a8823d;
+      font-size: 30px;
+    }
+
+    .locked strong {
+      margin: 12px 0 8px;
+      font-size: clamp(29px, 9vw, 48px);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .locked p {
+      margin: 0;
+      font: 600 15px/1.45 system-ui, sans-serif;
+    }
+
+    .supplements {
+      position: absolute;
+      z-index: 10;
+      inset: 0;
+      display: none;
+      overflow: auto;
+      padding: 12px 10px 78px;
+      background: rgba(240, 232, 211, 0.98);
+    }
+
+    .supplements.open {
+      display: block;
+    }
+
+    .supplement-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .close {
+      position: sticky;
+      z-index: 2;
+      top: 0;
+      float: right;
+      width: 46px;
+      height: 46px;
+      margin: 2px 2px -48px 0;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      color: #fff9ed;
+      background: rgba(90, 59, 51, 0.95);
+      font: 29px/1 system-ui, sans-serif;
+    }
+
+    .supplement-navigation {
+      position: sticky;
+      z-index: 2;
+      bottom: 8px;
+      width: calc(100% - 14px);
+      display: grid;
+      grid-template-columns: 42px 1fr 42px;
+      align-items: center;
+      gap: 7px;
+      margin: 10px auto 0;
+      padding: 5px;
+      border-radius: 30px;
+      color: #fff9ed;
+      background: rgba(90, 59, 51, 0.95);
+      font: 600 12px/1.25 system-ui, sans-serif;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="widget">
+
+    <img
+      class="week-image"
+      id="week-image"
+      src="assets/savaite-1.png"
+      alt="Laumijos žurnalo savaitės vizualas"
+    >
+
+    <div class="side-actions">
+
+      <a
+        class="side-button"
+        href="https://zivilesau.github.io/laumija-app/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Austėjos knyga"
+      >📖</a>
+
+      <button
+        class="side-button"
+        id="open-supplements"
+        type="button"
+        aria-label="Priedai"
+      >✦</button>
+
+    </div>
+
+    <div class="week-navigation">
+
+      <button
+        class="arrow"
+        id="previous"
+        type="button"
+        aria-label="Ankstesnė savaitė"
+      >‹</button>
+
+      <div class="week-info">
+        <strong id="week-title"></strong>
+        <span id="week-count"></span>
+      </div>
+
+      <button
+        class="arrow"
+        id="next"
+        type="button"
+        aria-label="Kita savaitė"
+      >›</button>
+
+    </div>
+
+    <section class="locked" id="locked" hidden>
+      <span>✦</span>
+      <strong>Austėjos laikas</strong>
+      <p>Pirmasis žurnalo puslapis atsivers rugpjūčio 1 dieną.</p>
+    </section>
+
+    <section
+      class="supplements"
+      id="supplements"
+      aria-label="Austėjos priedai"
+    >
+
+      <button
+        class="close"
+        id="close-supplements"
+        type="button"
+        aria-label="Uždaryti"
+      >×</button>
+
+      <img
+        class="supplement-image"
+        id="supplement-image"
+        alt=""
+      >
+
+      <div class="supplement-navigation">
+
+        <button
+          class="arrow"
+          id="previous-supplement"
+          type="button"
+          aria-label="Ankstesnis priedas"
+        >‹</button>
+
+        <span id="supplement-title"></span>
+
+        <button
+          class="arrow"
+          id="next-supplement"
+          type="button"
+          aria-label="Kitas priedas"
+        >›</button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const START_DATE = new Date(2026, 7, 1, 0, 0, 0);
+    const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+    const previewMode =
+      new URLSearchParams(location.search).get("perziura") === "1";
+
+    const weeks = [
+      {
+        title: "1 savaitė · Namų slenkstis",
+        image: "assets/savaite-1.png"
+      },
+      {
+        title: "2 savaitė",
+        image: "assets/savaite-2.png"
+      },
+      {
+        title: "3 savaitė",
+        image: "assets/savaite-3.png"
+      },
+      {
+        title: "4 savaitė",
+        image: "assets/savaite-4.png"
+      },
+      {
+        title: "5 savaitė",
+        image: "assets/savaite-5.png"
+      },
+      {
+        title: "6 savaitė",
+        image: "assets/savaite-6.png"
+      },
+      {
+        title: "7 savaitė",
+        image: "assets/savaite-7.png"
+      }
+    ];
+
+    const supplements = [
+      {
+        title: "Žolinių ritualas",
+        image: "assets/priedas-1.png"
+      },
+      {
+        title: "Austėjos priedas 2",
+        image: "assets/priedas-2.png"
+      },
+      {
+        title: "Austėjos priedas 3",
+        image: "assets/priedas-3.png"
+      },
+      {
+        title: "Austėjos priedas 4",
+        image: "assets/priedas-4.png"
+      }
+    ];
+
+    const elapsed = Date.now() - START_DATE.getTime();
+
+    const availableWeeks = previewMode
+      ? weeks.length
+      : elapsed < 0
+        ? 0
+        : Math.min(
+            weeks.length,
+            Math.floor(elapsed / WEEK_MS) + 1
+          );
+
+    let currentWeek = Math.max(0, availableWeeks - 1);
+    let currentSupplement = 0;
+
+    const weekImage =
+      document.querySelector("#week-image");
+
+    const weekTitle =
+      document.querySelector("#week-title");
+
+    const weekCount =
+      document.querySelector("#week-count");
+
+    const previous =
+      document.querySelector("#previous");
+
+    const next =
+      document.querySelector("#next");
+
+    const locked =
+      document.querySelector("#locked");
+
+    const supplementsPanel =
+      document.querySelector("#supplements");
+
+    const supplementImage =
+      document.querySelector("#supplement-image");
+
+    const supplementTitle =
+      document.querySelector("#supplement-title");
+
+    const previousSupplement =
+      document.querySelector("#previous-supplement");
+
+    const nextSupplement =
+      document.querySelector("#next-supplement");
+
+    function renderWeek() {
+      const page = weeks[currentWeek];
+
+      weekImage.src = page.image;
+
+      weekImage.alt =
+        `${page.title} – Laumijos žurnalo puslapis`;
+
+      weekTitle.textContent = page.title;
+
+      weekCount.textContent =
+        `${currentWeek + 1} / ${availableWeeks || 1}`;
+
+      previous.disabled = currentWeek === 0;
+
+      next.disabled =
+        currentWeek >= availableWeeks - 1;
+    }
+
+    function moveWeek(step) {
+      const target = currentWeek + step;
+
+      if (
+        target < 0 ||
+        target >= availableWeeks
+      ) {
+        return;
+      }
+
+      currentWeek = target;
+      renderWeek();
+    }
+
+    function renderSupplement() {
+      const page = supplements[currentSupplement];
+
+      supplementImage.src = page.image;
+
+      supplementImage.alt =
+        `${page.title} – Laumijos žurnalo priedas`;
+
+      supplementTitle.textContent =
+        `${page.title} · ${currentSupplement + 1}/${supplements.length}`;
+
+      previousSupplement.disabled =
+        currentSupplement === 0;
+
+      nextSupplement.disabled =
+        currentSupplement === supplements.length - 1;
+
+      supplementsPanel.scrollTop = 0;
+    }
+
+    previous.addEventListener(
+      "click",
+      () => moveWeek(-1)
+    );
+
+    next.addEventListener(
+      "click",
+      () => moveWeek(1)
+    );
+
+    document
+      .querySelector("#open-supplements")
+      .addEventListener("click", () => {
+        currentSupplement = 0;
+        renderSupplement();
+        supplementsPanel.classList.add("open");
+      });
+
+    document
+      .querySelector("#close-supplements")
+      .addEventListener("click", () => {
+        supplementsPanel.classList.remove("open");
+      });
+
+    previousSupplement.addEventListener(
+      "click",
+      () => {
+        if (currentSupplement > 0) {
+          currentSupplement -= 1;
+          renderSupplement();
+        }
+      }
+    );
+
+    nextSupplement.addEventListener(
+      "click",
+      () => {
+        if (
+          currentSupplement <
+          supplements.length - 1
+        ) {
+          currentSupplement += 1;
+          renderSupplement();
+        }
+      }
+    );
+
+    if (availableWeeks === 0) {
+      locked.hidden = false;
+    }
+
+    renderWeek();
+  </script>
+</body>
+</html>
