@@ -105,13 +105,22 @@
       z-index: 10;
       inset: 0;
       display: none;
-      overflow: auto;
-      padding: 12px 10px 78px;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: 10px;
+      overflow: hidden;
+      padding: 10px;
       background: rgba(240, 232, 211, 0.98);
     }
 
     .supplements.open {
-      display: block;
+      display: grid;
+    }
+
+    .supplement-scroll {
+      position: relative;
+      min-height: 0;
+      overflow: auto;
+      overscroll-behavior: contain;
     }
 
     .supplement-image {
@@ -136,15 +145,13 @@
     }
 
     .supplement-navigation {
-      position: sticky;
-      z-index: 2;
-      bottom: 8px;
-      width: calc(100% - 14px);
+      position: static;
+      width: 100%;
       display: grid;
       grid-template-columns: 42px 1fr 42px;
       align-items: center;
       gap: 7px;
-      margin: 10px auto 0;
+      margin: 0;
       padding: 5px;
       border-radius: 30px;
       color: #fff9ed;
@@ -166,15 +173,6 @@
     .arrow:disabled {
       opacity: 0.28;
     }
-
-.supplement-navigation {
-  position: fixed;
-  left: 18px;
-  right: 18px;
-  bottom: 12px;
-  width: auto;
-  margin: 0;
-}
   </style>
 </head>
 
@@ -227,18 +225,23 @@
       aria-label="Austėjos priedai"
     >
 
-      <button
-        class="close"
-        id="close-supplements"
-        type="button"
-        aria-label="Uždaryti priedus"
-      >×</button>
-
-      <img
-        class="supplement-image"
-        id="supplement-image"
-        alt=""
+      <div
+        class="supplement-scroll"
+        id="supplement-scroll"
       >
+        <button
+          class="close"
+          id="close-supplements"
+          type="button"
+          aria-label="Uždaryti priedus"
+        >×</button>
+
+        <img
+          class="supplement-image"
+          id="supplement-image"
+          alt=""
+        >
+      </div>
 
       <div class="supplement-navigation">
 
@@ -351,6 +354,9 @@
     const supplementsPanel =
       document.querySelector("#supplements");
 
+    const supplementScroll =
+      document.querySelector("#supplement-scroll");
+
     const supplementImage =
       document.querySelector("#supplement-image");
 
@@ -391,7 +397,7 @@
       nextSupplement.disabled =
         currentSupplement === supplements.length - 1;
 
-      supplementsPanel.scrollTop = 0;
+      supplementScroll.scrollTop = 0;
     }
 
     document
