@@ -32,11 +32,11 @@ const days = [
 ];
 
 const goddessGroups = [
-  [5, "Ragana", "https://i.postimg.cc/G9zdsnL4/Ragana-st.png"],
-  [11, "Aušrinė", "https://i.postimg.cc/zy8vYFGL/Ausrine-st.png"],
-  [17, "Austėja", "https://i.postimg.cc/S2BQTWP8/Austeja-st.png"],
-  [23, "Medeina", "https://i.postimg.cc/21kkKj07/Medeina-st.png"],
-  [30, "Veliona", "https://i.postimg.cc/rR2cCqdS/Veliona-st.png"]
+  [5, "Ragana", "https://i.postimg.cc/FzFgKv1Z/Raganafz.jpg"],
+  [11, "Aušrinė", "https://i.postimg.cc/9MdJM1bh/Ausrinefz.jpg"],
+  [17, "Austėja", "https://i.postimg.cc/65mLBDK5/Austejafz.jpg"],
+  [23, "Medeina", "https://i.postimg.cc/wvgDWzXb/Medeinafz.jpg"],
+  [30, "Veliona", "https://i.postimg.cc/hv3xP7H3/Velionafz.jpg"]
 ];
 
 const referenceNewMoon = Date.parse("2026-07-14T09:43:00Z");
@@ -91,9 +91,8 @@ const today = days[currentIndex];
 document.querySelector("#moon-number").textContent = currentIndex + 1;
 document.querySelector("#today-title").textContent = today[1];
 const goddess = goddessGroups.find(group => currentIndex < group[0]);
-document.querySelector("#goddess-name").textContent = goddess[1];
-document.querySelector("#goddess-image").src = goddess[2];
-document.querySelector("#goddess-image").alt = goddess[1];
+document.querySelector("#deity-phase-image").src = goddess[2];
+document.querySelector("#deity-phase-image").alt = `${goddess[1]} – mėnulio fazės aprašymas`;
 document.querySelector("#open-today").addEventListener("click", () => openDay(currentIndex));
 document.querySelector("#close-reading").addEventListener("click", closeDay);
 

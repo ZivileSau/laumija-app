@@ -31,7 +31,6 @@ button { font: inherit; }
   padding: 48px 0 72px;
 }
 
-.hero { text-align: center; margin-bottom: 28px; }
 .eyebrow {
   margin: 0 0 7px;
   color: var(--gold);
@@ -41,8 +40,6 @@ button { font: inherit; }
 }
 
 h1, h2 { margin: 0; font-weight: 500; }
-h1 { font-size: clamp(2.35rem, 10vw, 4.4rem); line-height: .98; }
-.intro { color: var(--muted); line-height: 1.55; }
 
 .phase-card {
   margin: 0 auto 14px;
@@ -77,10 +74,10 @@ h1 { font-size: clamp(2.35rem, 10vw, 4.4rem); line-height: .98; }
 
 .today-card {
   display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 18px;
+  grid-template-columns: 1fr;
+  gap: 12px;
   align-items: center;
-  padding: 24px;
+  padding: clamp(14px, 4vw, 24px);
   border: 1px solid var(--line);
   border-radius: 28px;
   background: var(--paper);
@@ -88,13 +85,15 @@ h1 { font-size: clamp(2.35rem, 10vw, 4.4rem); line-height: .98; }
   backdrop-filter: blur(12px);
 }
 
-.goddess { display: grid; place-items: center; color: var(--gold); }
-.goddess img { object-fit: contain; }
-.goddess span {
-  margin-top: -10px;
-  font: 700 .72rem/1 Arial, sans-serif;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+.deity-phase {
+  display: grid;
+  place-items: center;
+}
+.deity-phase img {
+  display: block;
+  width: min(100%, 420px);
+  height: auto;
+  border-radius: 20px;
 }
 
 .today-copy { text-align: center; }
@@ -181,9 +180,7 @@ h1 { font-size: clamp(2.35rem, 10vw, 4.4rem); line-height: .98; }
 }
 
 @media (max-width: 520px) {
-  .shell { padding-top: 30px; }
-  .today-card { grid-template-columns: 1fr; }
-  .goddess { margin-bottom: -14px; }
+  .shell { padding-top: 18px; }
   .day-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
   .day-button { min-height: 58px; border-radius: 12px; }
 }

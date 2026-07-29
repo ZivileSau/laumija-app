@@ -6,25 +6,18 @@
   <meta name="theme-color" content="#efe8dc">
   <meta name="description" content="Laumijos mėnulio dienų kalendorius">
   <title>Laumijos mėnulio dienos</title>
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <main class="shell">
-    <header class="hero">
-      <p class="eyebrow">Laumijos kalendorius</p>
-      <h1>Mėnulio dienos</h1>
-      <p class="intro">Kasdien atsiveria vis kitas mėnulio ciklo pasakojimas.</p>
-    </header>
-
     <section class="phase-card" aria-label="Dabartinė mėnulio fazė">
       <p class="phase-name" id="phase-name">Skaičiuojama mėnulio fazė…</p>
       <div class="phase-strip" id="phase-strip" aria-hidden="true"></div>
     </section>
 
     <section class="today-card" aria-labelledby="today-title">
-      <div class="goddess">
-        <img id="goddess-image" alt="" width="112" height="112">
-        <span id="goddess-name"></span>
+      <div class="deity-phase">
+        <img id="deity-phase-image" alt="">
       </div>
       <div class="today-copy">
         <span class="moon-number" id="moon-number">…</span>
@@ -49,6 +42,6 @@
       <div id="reading-body"></div>
     </article>
   </main>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
