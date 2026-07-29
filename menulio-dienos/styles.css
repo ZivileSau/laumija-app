@@ -44,6 +44,37 @@ h1, h2 { margin: 0; font-weight: 500; }
 h1 { font-size: clamp(2.35rem, 10vw, 4.4rem); line-height: .98; }
 .intro { color: var(--muted); line-height: 1.55; }
 
+.phase-card {
+  margin: 0 auto 14px;
+  padding: 16px 14px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255,255,255,.5);
+}
+.phase-name {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font: 700 .7rem/1.2 Arial, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.phase-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(7px, 3vw, 18px);
+  min-height: 42px;
+  font-size: clamp(1.15rem, 5vw, 1.55rem);
+}
+.phase-strip span { opacity: .58; }
+.phase-strip .near { opacity: .78; }
+.phase-strip .active {
+  opacity: 1;
+  font-size: 1.42em;
+  filter: drop-shadow(0 3px 5px rgba(70,45,24,.2));
+}
+
 .today-card {
   display: grid;
   grid-template-columns: 150px 1fr;

@@ -45,6 +45,19 @@ const elapsedDays = (Date.now() - referenceNewMoon) / 86400000;
 const moonAge = ((elapsedDays % synodicMonthDays) + synodicMonthDays) % synodicMonthDays;
 const currentIndex = Math.min(29, Math.floor(moonAge));
 
+const phaseRows = [
+  ["Jaunatis", ["🌖","🌗","🌘","🌑","🌒","🌓","🌔"]],
+  ["Pirmasis ketvirtis", ["🌘","🌑","🌒","🌓","🌔","🌕","🌖"]],
+  ["Pilnatis", ["🌒","🌓","🌔","🌕","🌖","🌗","🌘"]],
+  ["Paskutinis ketvirtis", ["🌔","🌕","🌖","🌗","🌘","🌑","🌒"]]
+];
+const phaseIndex = Math.min(3, Math.floor(moonAge / (synodicMonthDays / 4)));
+const activePhase = phaseRows[phaseIndex];
+document.querySelector("#phase-name").textContent = activePhase[0];
+document.querySelector("#phase-strip").innerHTML = activePhase[1]
+  .map((symbol, index) => `<span class="${index === 3 ? "active" : (index === 2 || index === 4 ? "near" : "")}">${symbol}</span>`)
+  .join("");
+
 const grid = document.querySelector("#day-grid");
 const reading = document.querySelector("#reading");
 
