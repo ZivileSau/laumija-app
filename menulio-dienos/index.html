@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="lt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#efe8dc">
+  <meta name="description" content="Laumijos mėnulio dienų kalendorius">
+  <title>Laumijos mėnulio dienos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">Laumijos kalendorius</p>
+      <h1>Mėnulio dienos</h1>
+      <p class="intro">Kasdien atsiveria vis kitas mėnulio ciklo pasakojimas.</p>
+    </header>
+
+    <section class="today-card" aria-labelledby="today-title">
+      <div class="goddess">
+        <img id="goddess-image" alt="" width="112" height="112">
+        <span id="goddess-name"></span>
+      </div>
+      <div class="today-copy">
+        <span class="moon-number" id="moon-number">…</span>
+        <p class="moon-label">Mėnulio diena</p>
+        <h2 id="today-title">Skaičiuojama…</h2>
+        <button id="open-today" type="button">Skaityti šiandienos tekstą</button>
+      </div>
+    </section>
+
+    <section class="calendar" aria-labelledby="calendar-title">
+      <div class="section-heading">
+        <p class="eyebrow">Visas ciklas</p>
+        <h2 id="calendar-title">Pasirink dieną</h2>
+      </div>
+      <div class="day-grid" id="day-grid"></div>
+    </section>
+
+    <article class="reading" id="reading" aria-live="polite" tabindex="-1">
+      <button class="close-reading" id="close-reading" type="button" aria-label="Uždaryti tekstą">×</button>
+      <p class="reading-day" id="reading-day"></p>
+      <h2 id="reading-title"></h2>
+      <div id="reading-body"></div>
+    </article>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
