@@ -88,8 +88,6 @@ function closeDay() {
 }
 
 const today = days[currentIndex];
-document.querySelector("#moon-number").textContent = currentIndex + 1;
-document.querySelector("#today-title").textContent = today[1];
 const goddess = goddessGroups.find(group => currentIndex < group[0]);
 document.querySelector("#deity-phase-image").src = goddess[2];
 document.querySelector("#deity-phase-image").alt = `${goddess[1]} – mėnulio fazės aprašymas`;

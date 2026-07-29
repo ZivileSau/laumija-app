@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#efe8dc">
   <meta name="description" content="Laumijos mėnulio dienų kalendorius">
   <title>Laumijos mėnulio dienos</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <main class="shell">
@@ -15,15 +15,12 @@
       <div class="phase-strip" id="phase-strip" aria-hidden="true"></div>
     </section>
 
-    <section class="today-card" aria-labelledby="today-title">
+    <section class="today-card" aria-label="Šiandienos deivės fazė ir refleksija">
       <div class="deity-phase">
         <img id="deity-phase-image" alt="">
       </div>
       <div class="today-copy">
-        <span class="moon-number" id="moon-number">…</span>
-        <p class="moon-label">Mėnulio diena</p>
-        <h2 id="today-title">Skaičiuojama…</h2>
-        <button id="open-today" type="button">Skaityti šiandienos tekstą</button>
+        <button id="open-today" type="button">Dienos refleksija</button>
       </div>
     </section>
 
@@ -42,6 +39,6 @@
       <div id="reading-body"></div>
     </article>
   </main>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>

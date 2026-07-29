@@ -97,29 +97,9 @@ h1, h2 { margin: 0; font-weight: 500; }
 }
 
 .today-copy { text-align: center; }
-.moon-number {
-  display: grid;
-  place-items: center;
-  width: 82px;
-  height: 82px;
-  margin: auto;
-  color: var(--gold);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  font-size: 2.45rem;
-  background: rgba(255,255,255,.45);
-}
-.moon-label {
-  margin: 8px 0 12px;
-  color: var(--muted);
-  font: 700 .66rem/1 Arial, sans-serif;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-}
-.today-copy h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
 
 #open-today {
-  margin-top: 17px;
+  margin-top: 2px;
   padding: 11px 18px;
   border: 0;
   border-radius: 999px;
