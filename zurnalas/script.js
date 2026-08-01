@@ -23,6 +23,9 @@ const previewMode =
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1";
 
+const embedMode = new URLSearchParams(location.search).get("embed") === "1";
+if (embedMode) document.body.classList.add("embed-mode");
+
 const menuToggle = document.querySelector(".menu-toggle");
 const slideMenu = document.querySelector(".slide-menu");
 const reader = document.querySelector("#reader");

@@ -40,6 +40,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   box-shadow: 0 5px 20px rgba(41, 26, 21, .18);
 }
 
+.embed-mode .topbar { display: none; }
+.embed-mode .slide-menu { top: max(10px, env(safe-area-inset-top)); }
+
 .back-link {
   color: inherit;
   text-decoration: none;
