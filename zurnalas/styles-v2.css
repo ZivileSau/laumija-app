@@ -42,6 +42,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .embed-mode .topbar { display: none; }
 .embed-mode .slide-menu { top: max(10px, env(safe-area-inset-top)); }
+.embed-mode #week-image { cursor: zoom-in; }
+.embed-mode #week-image:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: -3px;
+}
 
 .back-link {
   color: inherit;

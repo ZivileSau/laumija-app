@@ -50,6 +50,12 @@ let availableWeeks = getAvailableWeeks();
 let currentWeek = Math.max(0, availableWeeks - 1);
 let currentSupplement = 0;
 let touchStartX = null;
+let suppressImageClick = false;
+
+const requestedWeek = Number.parseInt(new URLSearchParams(location.search).get("savaite"), 10);
+if (!embedMode && Number.isInteger(requestedWeek) && requestedWeek >= 1) {
+  currentWeek = Math.min(requestedWeek - 1, Math.max(0, availableWeeks - 1));
+}
 
 function getAvailableWeeks() {
   if (previewMode) return weeks.length;
@@ -141,8 +147,33 @@ reader.addEventListener("touchstart", event => {
 reader.addEventListener("touchend", event => {
   if (touchStartX === null) return;
   const distance = event.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(distance) > 60) moveWeek(distance > 0 ? -1 : 1);
+  if (Math.abs(distance) > 60) {
+    suppressImageClick = true;
+    moveWeek(distance > 0 ? -1 : 1);
+  }
   touchStartX = null;
 }, { passive: true });
+
+if (embedMode) {
+  weekImage.setAttribute("role", "link");
+  weekImage.setAttribute("tabindex", "0");
+  weekImage.setAttribute("title", "Atverti pilną žurnalo puslapį");
+
+  const openFullJournal = () => {
+    if (suppressImageClick) {
+      suppressImageClick = false;
+      return;
+    }
+    window.open(`${location.pathname}?savaite=${currentWeek + 1}`, "_blank", "noopener");
+  };
+
+  weekImage.addEventListener("click", openFullJournal);
+  weekImage.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openFullJournal();
+    }
+  });
+}
 
 showLaunchState();
