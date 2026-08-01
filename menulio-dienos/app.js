@@ -45,6 +45,15 @@ const elapsedDays = (Date.now() - referenceNewMoon) / 86400000;
 const moonAge = ((elapsedDays % synodicMonthDays) + synodicMonthDays) % synodicMonthDays;
 const currentIndex = Math.min(29, Math.floor(moonAge));
 
+const lifeStages = [
+  [5, "Praeitis"],
+  [11, "Vaikystė"],
+  [17, "Jaunystė"],
+  [23, "Bendrystė"],
+  [30, "Moterystė"]
+];
+const activeLifeStage = lifeStages.find(stage => currentIndex < stage[0]);
+
 const phaseRows = [
   ["Jaunatis", ["🌖","🌗","🌘","🌑","🌒","🌓","🌔"]],
   ["Pirmasis ketvirtis", ["🌘","🌑","🌒","🌓","🌔","🌕","🌖"]],
@@ -53,7 +62,7 @@ const phaseRows = [
 ];
 const phaseIndex = Math.min(3, Math.floor(moonAge / (synodicMonthDays / 4)));
 const activePhase = phaseRows[phaseIndex];
-document.querySelector("#phase-name").textContent = activePhase[0];
+document.querySelector("#phase-name").textContent = activeLifeStage[1];
 document.querySelector("#phase-strip").innerHTML = activePhase[1]
   .map((symbol, index) => `<span class="${index === 3 ? "active" : (index === 2 || index === 4 ? "near" : "")}">${symbol}</span>`)
   .join("");
