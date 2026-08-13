@@ -25,11 +25,10 @@ button { font: inherit; }
 .shell { width: min(100%, 540px); min-height: 100vh; margin: 0 auto; padding: 22px 20px 44px; }
 .topbar { display:flex; align-items:center; justify-content:space-between; min-height:44px; }
 .brand { color: var(--muted); font-size: .74rem; letter-spacing: .24em; text-transform: uppercase; }
-.brand-link { text-decoration: none; }
 .home-link, .back-link {
   border: 0; background: transparent; color: var(--ink); cursor: pointer; padding: 10px 0;
 }
-.home-link { font-size: .82rem; }
+.home-link { font-size: .82rem; text-decoration: none; }
 .hero { padding: 38px 0 30px; }
 .eyebrow { margin: 0 0 10px; color: var(--gold); font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
 h1, h2 { font-family: "Cormorant Garamond", serif; font-weight: 600; line-height: .98; }
