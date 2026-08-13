@@ -192,7 +192,7 @@ function roman(number) { return ["I", "II", "III"][number - 1] || number; }
 function showHome() {
   location.hash = "";
   shell([
-    '<header class="topbar"><span class="brand">Laumija</span><span class="home-link">Prototipas</span></header>',
+    '<header class="topbar"><span class="brand">Laumija</span><span class="home-link">Vilnius</span></header>',
     '<section class="hub-hero"><p class="eyebrow">Laumės namai</p><h1>Pažink. Patirk.<br>Kurk kartu.</h1>',
     '<p class="intro">Viena vieta atrasti Laumiją, pajusti jos ritmą ir pasirinkti tai, kas šiandien kviečia.</p></section>',
 
@@ -217,7 +217,7 @@ function showHome() {
     '<a class="hub-card small create" href="https://laumija.lt/p/1096b77/"><span class="card-kicker">Individualiai</span><span class="card-symbol">⌁</span><h3>Pasakų terapija</h3><p>Asmeninis susitikimas su pasaka ir jos simboliais.</p><span class="card-foot"><span>Vilnius</span><span>Sužinoti →</span></span></a>',
     '<a class="hub-card small goddess" href="https://laumija.lt/p/1009f0b/"><span class="card-kicker">Rankų darbo</span><span class="card-symbol">◇</span><h3>Deivių amuletai</h3><p>Autoriniai papuošalai, gimstantys iš Laumijos simbolių.</p><span class="card-foot"><span>Atrasti</span><span>Atverti →</span></span></a>',
     '</div></section>',
-    '<p class="hub-note">Bandomasis Laumės namų vaizdas: pažintis, kasdienė patirtis ir gyvi susitikimai viename puslapyje.</p>'
+    '<p class="hub-note">Užsuk ten, kur šiandien pajutai daugiausia smalsumo, šilumos ar gyvybės.</p>'
   ].join(""));
   document.querySelectorAll("[data-part]").forEach(btn => btn.addEventListener("click", () => showLesson(Number(btn.dataset.part), 0)));
 }
