@@ -25,6 +25,7 @@ button { font: inherit; }
 .shell { width: min(100%, 540px); min-height: 100vh; margin: 0 auto; padding: 22px 20px 44px; }
 .topbar { display:flex; align-items:center; justify-content:space-between; min-height:44px; }
 .brand { color: var(--muted); font-size: .74rem; letter-spacing: .24em; text-transform: uppercase; }
+.brand-link { text-decoration: none; }
 .home-link, .back-link {
   border: 0; background: transparent; color: var(--ink); cursor: pointer; padding: 10px 0;
 }

@@ -192,7 +192,7 @@ function roman(number) { return ["I", "II", "III"][number - 1] || number; }
 function showHome() {
   location.hash = "";
   shell([
-    '<header class="topbar"><span class="brand">Laumija</span><span class="home-link">Vilnius</span></header>',
+    '<header class="topbar"><a class="brand brand-link" href="https://laumija.lt/" aria-label="Grįžti į pagrindinį Laumijos puslapį">← Į Laumiją</a><span class="home-link">Vilnius</span></header>',
     '<section class="hub-hero"><p class="eyebrow">Laumės namai</p><h1>Pažink. Patirk.<br>Kurk kartu.</h1>',
     '<p class="intro">Viena vieta atrasti Laumiją, pajusti jos ritmą ir pasirinkti tai, kas šiandien kviečia.</p></section>',
 
