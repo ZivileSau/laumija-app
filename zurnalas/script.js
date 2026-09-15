@@ -65,6 +65,10 @@ let currentSupplement = 0;
 let touchStartX = null;
 let suppressImageClick = false;
 
+function visibleSupplements() {
+  return currentWeek >= 7 ? supplements.slice(4) : supplements.slice(0, 4);
+}
+
 const requestedWeek = Number.parseInt(new URLSearchParams(location.search).get("savaite"), 10);
 if (!embedMode && Number.isInteger(requestedWeek) && requestedWeek >= 1) {
   currentWeek = Math.min(requestedWeek - 1, Math.max(0, availableWeeks - 1));
@@ -127,13 +131,14 @@ function moveWeek(direction) {
 }
 
 function renderSupplement() {
-  const page = supplements[currentSupplement];
+  const pages = visibleSupplements();
+  const page = pages[currentSupplement];
   supplementImage.src = page.image;
-  supplementImage.alt = `${page.title} – Austėjos žurnalo priedas`;
+  supplementImage.alt = `${page.title} – Laumijos žurnalo priedas`;
   supplementTitle.textContent = page.title;
-  supplementCount.textContent = `${currentSupplement + 1} / ${supplements.length}`;
+  supplementCount.textContent = `${currentSupplement + 1} / ${pages.length}`;
   prevSupplement.disabled = currentSupplement === 0;
-  nextSupplement.disabled = currentSupplement === supplements.length - 1;
+  nextSupplement.disabled = currentSupplement === pages.length - 1;
   supplementsDialog.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -161,7 +166,7 @@ prevSupplement.addEventListener("click", () => {
   if (currentSupplement > 0) { currentSupplement -= 1; renderSupplement(); }
 });
 nextSupplement.addEventListener("click", () => {
-  if (currentSupplement < supplements.length - 1) { currentSupplement += 1; renderSupplement(); }
+  if (currentSupplement < visibleSupplements().length - 1) { currentSupplement += 1; renderSupplement(); }
 });
 
 reader.addEventListener("touchstart", event => {
