@@ -94,8 +94,14 @@ function renderWeek() {
   const page = weeks[currentWeek];
   const isMedeina = currentWeek >= 7;
   if (cycleLabel) cycleLabel.textContent = isMedeina ? "Medeinos laikas" : "Austėjos laikas";
-  if (austejaBook) austejaBook.hidden = isMedeina;
-  if (medeinaBook) medeinaBook.hidden = !isMedeina;
+  if (austejaBook) {
+    austejaBook.hidden = isMedeina;
+    austejaBook.style.display = isMedeina ? "none" : "";
+  }
+  if (medeinaBook) {
+    medeinaBook.hidden = !isMedeina;
+    medeinaBook.style.display = isMedeina ? "" : "none";
+  }
   document.title = `Laumijos žurnalas · ${isMedeina ? "Medeinos laikas" : "Austėjos laikas"}`;
   loading.hidden = false;
   weekImage.onload = () => { loading.hidden = true; };
