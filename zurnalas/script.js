@@ -44,6 +44,7 @@ const countdown = document.querySelector("#countdown");
 const weekImage = document.querySelector("#week-image");
 const weekTitle = document.querySelector("#week-title");
 const weekCount = document.querySelector("#week-count");
+const cycleLabel = document.querySelector("#cycle-label");
 const releaseNote = document.querySelector("#release-note");
 const prevWeek = document.querySelector("#prev-week");
 const nextWeek = document.querySelector("#next-week");
@@ -89,6 +90,9 @@ function showLaunchState() {
 
 function renderWeek() {
   const page = weeks[currentWeek];
+  const isMedeina = currentWeek >= 7;
+  if (cycleLabel) cycleLabel.textContent = isMedeina ? "Medeinos laikas" : "Austėjos laikas";
+  document.title = `Laumijos žurnalas · ${isMedeina ? "Medeinos laikas" : "Austėjos laikas"}`;
   loading.hidden = false;
   weekImage.onload = () => { loading.hidden = true; };
   weekImage.src = page.image;
