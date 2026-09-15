@@ -39,20 +39,8 @@ const goddessGroups = [
   [30, "Veliona", "https://i.postimg.cc/hv3xP7H3/Velionafz.jpg"]
 ];
 
-const referenceNewMoon = Date.parse("2026-07-14T09:43:00Z");
-const synodicMonthDays = 29.530588853;
-const elapsedDays = (Date.now() - referenceNewMoon) / 86400000;
-const moonAge = ((elapsedDays % synodicMonthDays) + synodicMonthDays) % synodicMonthDays;
-const currentIndex = Math.min(29, Math.floor(moonAge));
-
-const lifeStages = [
-  [5, "Praeitis"],
-  [11, "Vaikystė"],
-  [17, "Jaunystė"],
-  [23, "Bendrystė"],
-  [30, "Moterystė"]
-];
-const activeLifeStage = lifeStages.find(stage => currentIndex < stage[0]);
+const VILNIUS = new Astronomy.Observer(54.6872, 25.2797, 112);
+const MINUTE = 60000;
 
 const phaseRows = [
   ["Jaunatis", ["🌖","🌗","🌘","🌑","🌒","🌓","🌔"]],
@@ -60,25 +48,45 @@ const phaseRows = [
   ["Pilnatis", ["🌒","🌓","🌔","🌕","🌖","🌗","🌘"]],
   ["Paskutinis ketvirtis", ["🌔","🌕","🌖","🌗","🌘","🌑","🌒"]]
 ];
-const phaseIndex = Math.min(3, Math.floor(moonAge / (synodicMonthDays / 4)));
-const activePhase = phaseRows[phaseIndex];
-document.querySelector("#phase-name").textContent = activeLifeStage[1];
-document.querySelector("#phase-strip").innerHTML = activePhase[1]
-  .map((symbol, index) => `<span class="${index === 3 ? "active" : (index === 2 || index === 4 ? "near" : "")}">${symbol}</span>`)
-  .join("");
+
+function getLunarState(now = new Date()) {
+  const previousNewMoon = Astronomy.SearchMoonPhase(0, now, -40);
+  const nextNewMoon = Astronomy.SearchMoonPhase(0, now, 40);
+  if (!previousNewMoon || !nextNewMoon) throw new Error("Nepavyko apskaičiuoti jaunaties.");
+
+  const boundaries = [previousNewMoon.date];
+  let cursor = new Date(previousNewMoon.date.getTime() + MINUTE);
+
+  while (boundaries.length < days.length && cursor < nextNewMoon.date) {
+    const moonrise = Astronomy.SearchRiseSet(Astronomy.Body.Moon, VILNIUS, +1, cursor, 3, 0);
+    if (!moonrise || moonrise.date >= nextNewMoon.date) break;
+    boundaries.push(moonrise.date);
+    cursor = new Date(moonrise.date.getTime() + MINUTE);
+  }
+
+  let currentIndex = 0;
+  boundaries.forEach((boundary, index) => {
+    if (boundary <= now) currentIndex = index;
+  });
+
+  const phaseAngle = Astronomy.MoonPhase(now);
+  const phaseIndex = phaseAngle < 45 || phaseAngle >= 315 ? 0
+    : phaseAngle < 135 ? 1
+      : phaseAngle < 225 ? 2 : 3;
+
+  return {
+    currentIndex: Math.min(days.length - 1, currentIndex),
+    phaseIndex,
+    previousNewMoon: previousNewMoon.date,
+    nextNewMoon: nextNewMoon.date,
+    boundaries
+  };
+}
+
+window.LaumijaMoon = { getLunarState };
 
 const grid = document.querySelector("#day-grid");
 const reading = document.querySelector("#reading");
-
-days.forEach((day, index) => {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = `day-button${index === currentIndex ? " current" : ""}`;
-  button.setAttribute("aria-label", `${index + 1} mėnulio diena – ${day[1]}`);
-  button.innerHTML = `<span class="phase">${day[0]}</span><span class="number">${index + 1}</span>`;
-  button.addEventListener("click", () => openDay(index));
-  grid.append(button);
-});
 
 function openDay(index, updateHash = true) {
   const day = days[index];
@@ -96,12 +104,52 @@ function closeDay() {
   history.replaceState(null, "", location.pathname + location.search);
 }
 
-const today = days[currentIndex];
-const goddess = goddessGroups.find(group => currentIndex < group[0]);
-document.querySelector("#deity-phase-image").src = goddess[2];
-document.querySelector("#deity-phase-image").alt = `${goddess[1]} – mėnulio fazės aprašymas`;
-document.querySelector("#open-today").addEventListener("click", () => openDay(currentIndex));
 document.querySelector("#close-reading").addEventListener("click", closeDay);
 
-const requestedDay = Number(location.hash.match(/^#diena-(\d{1,2})$/)?.[1]);
-if (requestedDay >= 1 && requestedDay <= 30) openDay(requestedDay - 1, false);
+function fallbackImage(name) {
+  const safeName = name.replace(/[<>&"']/g, "");
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#2d392f"/><circle cx="600" cy="330" r="150" fill="#d8c59b" opacity=".9"/><text x="600" y="610" fill="#f4eee0" font-family="serif" font-size="72" text-anchor="middle">${safeName}</text></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+function renderCalendar(now = new Date()) {
+  const state = getLunarState(now);
+  const activePhase = phaseRows[state.phaseIndex];
+
+  document.querySelector("#phase-name").textContent = activePhase[0];
+  document.querySelector("#phase-strip").innerHTML = activePhase[1]
+    .map((symbol, index) => `<span class="${index === 3 ? "active" : (index === 2 || index === 4 ? "near" : "")}">${symbol}</span>`)
+    .join("");
+
+  days.forEach((day, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `day-button${index === state.currentIndex ? " current" : ""}`;
+    button.setAttribute("aria-label", `${index + 1} mėnulio diena – ${day[1]}`);
+    button.innerHTML = `<span class="phase">${day[0]}</span><span class="number">${index + 1}</span>`;
+    button.addEventListener("click", () => openDay(index));
+    grid.append(button);
+  });
+
+  const goddess = goddessGroups.find(group => state.currentIndex < group[0]);
+  const image = document.querySelector("#deity-phase-image");
+  image.alt = `${goddess[1]} – mėnulio fazės aprašymas`;
+  image.onerror = () => {
+    image.onerror = null;
+    image.src = fallbackImage(goddess[1]);
+  };
+  image.src = goddess[2];
+
+  document.querySelector("#open-today").addEventListener("click", () => openDay(state.currentIndex));
+
+  const requestedDay = Number(location.hash.match(/^#diena-(\d{1,2})$/)?.[1]);
+  if (requestedDay >= 1 && requestedDay <= days.length) openDay(requestedDay - 1, false);
+}
+
+try {
+  renderCalendar();
+} catch (error) {
+  console.error(error);
+  document.querySelector("#phase-name").textContent = "Mėnulio skaičiavimas laikinai nepasiekiamas";
+  document.querySelector("#open-today").disabled = true;
+}
