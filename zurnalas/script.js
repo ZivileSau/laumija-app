@@ -8,18 +8,28 @@ const weeks = [
   { title: "4 savaitė", image: "assets/savaite-4.png" },
   { title: "5 savaitė", image: "assets/savaite-5.png" },
   { title: "6 savaitė", image: "assets/savaite-6.png" },
-  { title: "7 savaitė", image: "assets/savaite-7.png" }
+  { title: "7 savaitė", image: "assets/savaite-7.png" },
+  { title: "8 savaitė · Medeinos 1 savaitė", image: "assets/medeina-savaite-1.png" },
+  { title: "9 savaitė · Medeinos 2 savaitė", image: "assets/medeina-savaite-2.png" },
+  { title: "10 savaitė · Medeinos 3 savaitė", image: "assets/medeina-savaite-3.png" },
+  { title: "11 savaitė · Medeinos 4 savaitė", image: "assets/medeina-savaite-4.png" },
+  { title: "12 savaitė · Medeinos 5 savaitė", image: "assets/medeina-savaite-5.png" },
+  { title: "13 savaitė · Medeinos 6 savaitė", image: "assets/medeina-savaite-6.png" }
 ];
 
 const supplements = [
   { title: "Žolinių ritualas", image: "assets/priedas-1.png" },
   { title: "Austėjos priedas 2", image: "assets/priedas-2.png" },
   { title: "Austėjos priedas 3", image: "assets/priedas-3.png" },
-  { title: "Austėjos priedas 4", image: "assets/priedas-4.png" }
+  { title: "Austėjos priedas 4", image: "assets/priedas-4.png" },
+  { title: "Medeinos priedas 1", image: "assets/medeina-priedas-1.png" },
+  { title: "Medeinos priedas 2", image: "assets/medeina-priedas-2.png" },
+  { title: "Medeinos priedas 3", image: "assets/medeina-priedas-3.png" }
 ];
 
 const previewMode =
   new URLSearchParams(location.search).get("perziura") === "1" ||
+  location.protocol === "file:" ||
   location.hostname === "localhost" ||
   location.hostname === "127.0.0.1";
 
@@ -88,10 +98,10 @@ function renderWeek() {
   prevWeek.disabled = currentWeek === 0;
   nextWeek.disabled = currentWeek >= availableWeeks - 1;
   releaseNote.textContent = previewMode
-    ? "Peržiūros režimas · matomos visos 7 savaitės"
+    ? `Peržiūros režimas · matomos visos ${weeks.length} savaitės`
     : availableWeeks < weeks.length
       ? "Naujas puslapis atsiveria kiekvieną šeštadienį."
-      : "Visas Austėjos ciklas jau atvertas.";
+      : "Visas Rėdos rato ciklas jau atvertas.";
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
