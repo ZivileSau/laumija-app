@@ -1,0 +1,381 @@
+:root {
+  --ink: #30243b;
+  --muted: #665a70;
+  --wine: #6f3e62;
+  --leaf: #526744;
+  --cream: rgba(255, 252, 247, .84);
+  --cream-strong: rgba(255, 253, 249, .94);
+  --line: rgba(255, 255, 255, .72);
+  --shadow: 0 18px 42px rgba(61, 40, 73, .18);
+}
+
+* { box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  background-color: #9485ad;
+  background-image:
+    linear-gradient(rgba(248, 237, 247, .12), rgba(239, 231, 207, .22)),
+    url("https://p.taplink.st/p/9/2/4/a/70316527.webp?0");
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(105, 82, 134, .12), rgba(240, 224, 205, .25));
+}
+
+a { color: inherit; }
+
+.library-shell {
+  width: min(100%, 960px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 92px) clamp(16px, 4vw, 38px) 28px;
+}
+
+.hero {
+  width: min(680px, 100%);
+  margin: 0 auto clamp(34px, 6vw, 58px);
+  text-align: center;
+  text-shadow: 0 1px 16px rgba(255, 255, 255, .82);
+}
+
+.eyebrow,
+.section-kicker {
+  margin: 0 0 3px;
+  color: var(--wine);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Cormorant Garamond", serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.25rem, 11vw, 6rem);
+  font-weight: 600;
+  line-height: .9;
+}
+
+.hero-copy {
+  max-width: 600px;
+  margin: 22px auto 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.16rem, 3vw, 1.38rem);
+  font-weight: 600;
+  line-height: 1.42;
+}
+
+.shelf {
+  margin-top: clamp(32px, 6vw, 56px);
+}
+
+.shelf-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 5px 15px;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.7rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.rhythm {
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 255, 255, .78);
+  border-radius: 999px;
+  background: rgba(255, 248, 250, .54);
+  color: var(--wine);
+  font-size: .7rem;
+  font-weight: 600;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+.writing-grid,
+.tale-grid,
+.reading-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.writing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tale-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.reading-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.book-card,
+.tale-card,
+.reading-card,
+.personal-story,
+.site-nav {
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.book-card {
+  position: relative;
+  display: flex;
+  min-height: 285px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: linear-gradient(145deg, rgba(255, 244, 247, .9), rgba(221, 228, 194, .69));
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.book-card::before,
+.book-card::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.book-card::before {
+  width: 220px;
+  height: 220px;
+  top: -90px;
+  right: -55px;
+  background: radial-gradient(circle, rgba(255,255,255,.85), rgba(220,183,210,.25) 60%, transparent 72%);
+}
+
+.book-card::after {
+  width: 170px;
+  height: 170px;
+  bottom: -80px;
+  left: -45px;
+  background: radial-gradient(circle, rgba(132,162,101,.35), transparent 68%);
+}
+
+.book-card[data-tone="island"] {
+  background: linear-gradient(150deg, rgba(231, 244, 235, .9), rgba(161, 179, 191, .73));
+}
+
+.book-card[data-tone="thread"] {
+  background: linear-gradient(150deg, rgba(255, 239, 241, .91), rgba(207, 183, 216, .72));
+}
+
+.book-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: clamp(23px, 4vw, 34px);
+}
+
+.book-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.status {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .62);
+  color: var(--wine);
+  font-size: .67rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.book-symbol {
+  font-size: 1.5rem;
+}
+
+.book-card h3 {
+  margin: auto 0 8px;
+  font-size: clamp(2.1rem, 6vw, 3.2rem);
+  font-weight: 600;
+  line-height: .95;
+}
+
+.book-card p {
+  max-width: 33ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.book-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.book-footer small {
+  color: var(--muted);
+  font-size: .7rem;
+  line-height: 1.3;
+}
+
+.open-label {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.06rem;
+  font-weight: 700;
+}
+
+.book-card.is-coming {
+  cursor: default;
+}
+
+.book-card.is-coming .open-label {
+  color: var(--wine);
+}
+
+.tale-card,
+.reading-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 145px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--cream);
+  text-decoration: none;
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.tale-card:hover,
+.reading-card:hover,
+.personal-story:hover,
+.book-card[href]:hover {
+  transform: translateY(-2px);
+}
+
+.tale-card span,
+.reading-card span {
+  color: var(--wine);
+  font-size: 1.22rem;
+}
+
+.tale-card h3,
+.reading-card h3 {
+  margin: auto 0 4px;
+  font-size: 1.5rem;
+  line-height: 1.05;
+}
+
+.tale-card small,
+.reading-card small {
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.personal-story {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(34px, 6vw, 58px);
+  padding: 22px 24px;
+  border-radius: 22px;
+  background: linear-gradient(100deg, rgba(246, 230, 238, .89), rgba(222, 230, 195, .78));
+  text-decoration: none;
+  transition: transform .2s ease;
+}
+
+.personal-symbol {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .58);
+  color: var(--wine);
+}
+
+.personal-story strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.55rem;
+}
+
+.personal-story small {
+  color: var(--muted);
+}
+
+.arrow {
+  font-size: 1.5rem;
+}
+
+.site-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(233, 222, 218, .76);
+}
+
+.site-nav a {
+  display: flex;
+  min-height: 70px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 6px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.site-nav a + a {
+  border-left: 1px solid rgba(255, 255, 255, .58);
+}
+
+.site-nav span { font-size: 1.12rem; }
+.site-nav small { font-size: .62rem; line-height: 1.15; }
+
+@media (max-width: 680px) {
+  body { background-attachment: scroll; }
+  .library-shell { padding-top: 52px; }
+  .writing-grid,
+  .tale-grid,
+  .reading-grid { grid-template-columns: 1fr; }
+  .book-card { min-height: 245px; }
+  .shelf-heading { align-items: flex-start; }
+  .rhythm { margin-top: 3px; font-size: .62rem; }
+  .tale-card,
+  .reading-card { min-height: 116px; }
+}
+
+@media (max-width: 420px) {
+  .library-shell { padding-inline: 12px; }
+  .hero-copy { padding-inline: 8px; }
+  .rhythm { max-width: 120px; text-align: center; white-space: normal; }
+  .personal-story { padding-inline: 17px; }
+  .personal-story small { font-size: .7rem; }
+  .site-nav a { flex-direction: column; gap: 3px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}

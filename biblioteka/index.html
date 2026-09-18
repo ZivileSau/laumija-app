@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="lt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8f7eaa">
+  <meta name="description" content="Laumijos biblioteka – augantys romanai, pasakos ir skaitiniai.">
+  <title>Laumijos biblioteka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="library-shell">
+    <header class="hero">
+      <p class="eyebrow">Laumijos</p>
+      <h1>Biblioteka</h1>
+      <p class="hero-copy">Istorijos, kurios auga kartu su Laumija. Čia gali skaityti užbaigtas pasakas ir sugrįžti į dar rašomų romanų tęsinį.</p>
+    </header>
+
+    <section class="shelf" aria-labelledby="writing-title">
+      <div class="shelf-heading">
+        <div>
+          <p class="section-kicker">Gyvos istorijos</p>
+          <h2 id="writing-title">Dabar rašoma</h2>
+        </div>
+        <span class="rhythm">Naujos dalys pirmadieniais</span>
+      </div>
+      <div class="writing-grid" id="writing-grid"></div>
+    </section>
+
+    <section class="shelf" aria-labelledby="tales-title">
+      <div class="shelf-heading">
+        <div>
+          <p class="section-kicker">Užbaigtos istorijos</p>
+          <h2 id="tales-title">Pasakos</h2>
+        </div>
+      </div>
+      <div class="tale-grid" id="tale-grid"></div>
+    </section>
+
+    <section class="shelf" aria-labelledby="reading-title">
+      <div class="shelf-heading">
+        <div>
+          <p class="section-kicker">Trumpesniam sustojimui</p>
+          <h2 id="reading-title">Skaitiniai</h2>
+        </div>
+      </div>
+      <div class="reading-grid" id="reading-grid"></div>
+    </section>
+
+    <a class="personal-story" href="https://laumija.lt/p/1096b77/">
+      <span class="personal-symbol" aria-hidden="true">✦</span>
+      <span>
+        <strong>Tavo pasaka…</strong>
+        <small>Tai gali tapti tavo asmeninės pasakos pradžia</small>
+      </span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Laumijos puslapiai">
+      <a href="https://laumija.lt/"><span aria-hidden="true">🎡</span><small>Rėdos<br>kalendorius</small></a>
+      <a href="https://laumija.lt/p/110c548/"><span aria-hidden="true">🕸</span><small>Laimos<br>raštai</small></a>
+      <a href="https://laumija.lt/p/104f5ad/"><span aria-hidden="true">🔱</span><small>Laumijos<br>deivės</small></a>
+      <a href="https://laumija.lt/p/104f51d/"><span aria-hidden="true">🗝</span><small>Laumės<br>namai</small></a>
+    </nav>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
