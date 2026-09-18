@@ -44,9 +44,9 @@ const MINUTE = 60000;
 
 const phaseRows = [
   ["Jaunatis", ["🌖","🌗","🌘","🌑","🌒","🌓","🌔"]],
-  ["Pirmasis ketvirtis", ["🌘","🌑","🌒","🌓","🌔","🌕","🌖"]],
+  ["Priešpilnis", ["🌘","🌑","🌒","🌓","🌔","🌕","🌖"]],
   ["Pilnatis", ["🌒","🌓","🌔","🌕","🌖","🌗","🌘"]],
-  ["Paskutinis ketvirtis", ["🌔","🌕","🌖","🌗","🌘","🌑","🌒"]]
+  ["Delčia", ["🌔","🌕","🌖","🌗","🌘","🌑","🌒"]]
 ];
 
 function getLunarState(now = new Date()) {
