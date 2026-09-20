@@ -2,13 +2,13 @@ const START_DATE = new Date(2026, 7, 1, 0, 0, 0);
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 const weeks = [
-  { title: "1 savaitė · Namų slenkstis", image: "assets/savaite-1.png" },
-  { title: "2 savaitė", image: "assets/savaite-2.png" },
-  { title: "3 savaitė", image: "assets/savaite-3.png" },
-  { title: "4 savaitė", image: "assets/savaite-4.png" },
-  { title: "5 savaitė", image: "assets/savaite-5.png" },
-  { title: "6 savaitė", image: "assets/savaite-6.png" },
-  { title: "7 savaitė", image: "assets/savaite-7.png" },
+  { title: "1 savaitė · Austėjos 1 savaitė · Namų slenkstis", image: "assets/savaite-1.png" },
+  { title: "2 savaitė · Austėjos 2 savaitė", image: "assets/savaite-2.png" },
+  { title: "3 savaitė · Austėjos 3 savaitė", image: "assets/savaite-3.png" },
+  { title: "4 savaitė · Austėjos 4 savaitė", image: "assets/savaite-4.png" },
+  { title: "5 savaitė · Austėjos 5 savaitė", image: "assets/savaite-5.png" },
+  { title: "6 savaitė · Austėjos 6 savaitė", image: "assets/savaite-6.png" },
+  { title: "7 savaitė · Austėjos 7 savaitė", image: "assets/savaite-7.png" },
   { title: "8 savaitė · Medeinos 1 savaitė", image: "assets/medeina-savaite-1.png" },
   { title: "9 savaitė · Medeinos 2 savaitė", image: "assets/medeina-savaite-2.png" },
   { title: "10 savaitė · Medeinos 3 savaitė", image: "assets/medeina-savaite-3.png" },
@@ -45,6 +45,7 @@ const weekImage = document.querySelector("#week-image");
 const weekTitle = document.querySelector("#week-title");
 const weekCount = document.querySelector("#week-count");
 const cycleLabel = document.querySelector("#cycle-label");
+const readerLabel = document.querySelector("#reader");
 const austejaBook = document.querySelector("#austeja-book");
 const medeinaBook = document.querySelector("#medeina-book");
 const releaseNote = document.querySelector("#release-note");
@@ -56,6 +57,7 @@ const supplementsDialog = document.querySelector("#supplements");
 const supplementImage = document.querySelector("#supplement-image");
 const supplementTitle = document.querySelector("#supplement-title");
 const supplementCount = document.querySelector("#supplement-count");
+const supplementCycle = document.querySelector("#supplement-cycle");
 const prevSupplement = document.querySelector("#prev-supplement");
 const nextSupplement = document.querySelector("#next-supplement");
 
@@ -98,6 +100,7 @@ function renderWeek() {
   const page = weeks[currentWeek];
   const isMedeina = currentWeek >= 7;
   if (cycleLabel) cycleLabel.textContent = isMedeina ? "Medeinos laikas" : "Austėjos laikas";
+  if (readerLabel) readerLabel.setAttribute("aria-label", `${isMedeina ? "Medeinos" : "Austėjos"} savaičių žurnalas`);
   if (austejaBook) {
     austejaBook.hidden = isMedeina;
     austejaBook.style.display = isMedeina ? "none" : "";
@@ -133,6 +136,8 @@ function moveWeek(direction) {
 function renderSupplement() {
   const pages = visibleSupplements();
   const page = pages[currentSupplement];
+  const isMedeina = currentWeek >= 7;
+  if (supplementCycle) supplementCycle.textContent = isMedeina ? "Medeinos laikas" : "Austėjos laikas";
   supplementImage.src = page.image;
   supplementImage.alt = `${page.title} – Laumijos žurnalo priedas`;
   supplementTitle.textContent = page.title;
