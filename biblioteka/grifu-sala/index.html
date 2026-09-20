@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="lt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#668c88">
+  <meta name="description" content="Grifų sala – augantis Živilės romanas Laumijos bibliotekoje.">
+  <title>Grifų sala · Laumijos biblioteka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="story-shell">
+    <a class="back-link" href="../">← Laumijos biblioteka</a>
+
+    <article class="story-card">
+      <header class="story-header">
+        <img src="assets/grifai-cover.jpg" alt="Akvarele nutapyta seno pajūrio miestelio aikštė">
+        <div class="header-copy">
+          <p class="eyebrow">Augantis romanas</p>
+          <h1>Grifų sala</h1>
+          <p>Moteris su dukra pabėga į mažą pajūrio miestelį, kuriame jų laukia nykstanti sala ir seniai nutrūkusi paslaptis.</p>
+          <small>Naujos dalys pirmadieniais</small>
+        </div>
+      </header>
+
+      <nav class="chapter-nav" aria-label="Romano skyriai">
+        <button type="button" data-chapter="1" class="is-active">1 skyrius</button>
+        <button type="button" data-chapter="2">2 skyrius</button>
+      </nav>
+
+      <section class="chapter">
+        <p class="chapter-number" id="chapter-number">Pirmas skyrius</p>
+        <div class="story-text" id="story-text" aria-live="polite">
+          <p class="loading">Skyrius atsiveria…</p>
+        </div>
+        <button class="next-chapter" id="next-chapter" type="button">Skaityti antrą skyrių →</button>
+      </section>
+    </article>
+  </main>
+  <script src="reader.js"></script>
+</body>
+</html>
+
