@@ -5,7 +5,8 @@ const buttons = [...document.querySelectorAll("[data-chapter]")];
 
 const chapters = {
   1: { file: "chapter-1.txt", label: "Pirmas skyrius" },
-  2: { file: "chapter-2.txt", label: "Antras skyrius" }
+  2: { file: "chapter-2.txt", label: "Antras skyrius" },
+  3: { file: "chapter-3.txt", label: "Trečias skyrius" }
 };
 
 function escapeHtml(text) {
@@ -38,7 +39,12 @@ function showChapter(number, shouldScroll = false) {
     .then(text => {
       const blocks = text.replace(/^\uFEFF/, "").trim().split(/\r?\n+/).filter(Boolean);
       story.innerHTML = blocks.map(block => `<p>${escapeHtml(block.trim())}</p>`).join("");
-      nextButton.hidden = number === 2;
+      const nextChapter = chapters[number + 1];
+      nextButton.hidden = !nextChapter;
+      if (nextChapter) {
+        nextButton.textContent = `Skaityti ${nextChapter.label.toLowerCase()} →`;
+        nextButton.dataset.nextChapter = String(number + 1);
+      }
       history.replaceState(null, "", `#skyrius-${number}`);
       if (shouldScroll) chapterNumber.scrollIntoView({ behavior: "smooth", block: "start" });
     })
@@ -48,8 +54,7 @@ function showChapter(number, shouldScroll = false) {
 }
 
 buttons.forEach(button => button.addEventListener("click", () => showChapter(Number(button.dataset.chapter), true)));
-nextButton.addEventListener("click", () => showChapter(2, true));
+nextButton.addEventListener("click", () => showChapter(Number(nextButton.dataset.nextChapter), true));
 
 const requested = Number(location.hash.match(/skyrius-(\d+)/)?.[1] || 1);
 showChapter(chapters[requested] ? requested : 1);
-
