@@ -175,7 +175,13 @@ h1 {
   .story-shell { padding-inline: 8px; }
   .story-header { min-height: 440px; }
   .header-copy { padding-inline: 24px; }
+  .chapter-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .chapter-nav::-webkit-scrollbar { display: none; }
+  .chapter-nav button { flex: 0 0 auto; }
   .chapter { padding-inline: 22px; }
   .story-text { font-size: 1.22rem; line-height: 1.64; }
 }
-
