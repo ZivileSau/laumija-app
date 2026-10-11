@@ -6,7 +6,7 @@ const library = {
       tone: "island",
       description: "Moteris su dukra pabėga į mažą pajūrio miestelį, kuriame jų laukia nykstanti sala ir seniai nutrūkusi paslaptis.",
       status: "Rašoma",
-      rhythm: "Papildyta · 4 skyriai",
+      rhythm: "Papildyta · 5 skyriai",
       url: "./grifu-sala/"
     },
     {
