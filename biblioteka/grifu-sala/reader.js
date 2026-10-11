@@ -7,7 +7,8 @@ const chapters = {
   1: { file: "chapter-1.txt", label: "Pirmas skyrius" },
   2: { file: "chapter-2.txt", label: "Antras skyrius" },
   3: { file: "chapter-3.txt", label: "Trečias skyrius" },
-  4: { file: "chapter-4.txt", label: "Ketvirtas skyrius" }
+  4: { file: "chapter-4.txt", label: "Ketvirtas skyrius" },
+  5: { file: "chapter-5.txt", label: "Penktas skyrius" }
 };
 
 function escapeHtml(text) {
