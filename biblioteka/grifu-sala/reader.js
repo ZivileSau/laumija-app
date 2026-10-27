@@ -9,7 +9,8 @@ const chapters = {
   3: { file: "chapter-3.txt", label: "Trečias skyrius" },
   4: { file: "chapter-4.txt", label: "Ketvirtas skyrius" },
   5: { file: "chapter-5.txt", label: "Penktas skyrius" },
-  6: { file: "chapter-6.txt", label: "Šeštas skyrius" }
+  6: { file: "chapter-6.txt", label: "Šeštas skyrius" },
+  7: { file: "chapter-7.txt", label: "Septintas skyrius" }
 };
 
 function escapeHtml(text) {
@@ -61,3 +62,4 @@ nextButton.addEventListener("click", () => showChapter(Number(nextButton.dataset
 
 const requested = Number(location.hash.match(/skyrius-(\d+)/)?.[1] || 1);
 showChapter(chapters[requested] ? requested : 1);
+
