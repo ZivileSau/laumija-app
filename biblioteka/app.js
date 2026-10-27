@@ -6,7 +6,7 @@ const library = {
       tone: "island",
       description: "Moteris su dukra pabėga į mažą pajūrio miestelį, kuriame jų laukia nykstanti sala ir seniai nutrūkusi paslaptis.",
       status: "Rašoma",
-      rhythm: "Papildyta · 6 skyriai",
+      rhythm: "Papildyta · 7 skyriai",
       url: "./grifu-sala/"
     },
     {
@@ -64,3 +64,4 @@ function smallCard(item, className) {
 document.querySelector("#writing-grid").innerHTML = library.writing.map(bookCard).join("");
 document.querySelector("#tale-grid").innerHTML = library.tales.map(item => smallCard(item, "tale-card")).join("");
 document.querySelector("#reading-grid").innerHTML = library.reading.map(item => smallCard(item, "reading-card")).join("");
+
