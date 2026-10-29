@@ -14,7 +14,14 @@ const weeks = [
   { title: "10 savaitė · Medeinos 3 savaitė", image: "assets/medeina-savaite-3.png" },
   { title: "11 savaitė · Medeinos 4 savaitė", image: "assets/medeina-savaite-4.png" },
   { title: "12 savaitė · Medeinos 5 savaitė", image: "assets/medeina-savaite-5.png" },
-  { title: "13 savaitė · Medeinos 6 savaitė", image: "assets/medeina-savaite-6.png" }
+  { title: "13 savaitė · Medeinos 6 savaitė", image: "assets/medeina-savaite-6.png" },
+  { title: "14 savaitė · Velionos 1 savaitė · Namai prisimena", image: "../assets/ciklai/veliona/zurnalas/veliona-savaite-1.png" },
+  { title: "15 savaitė · Velionos 2 savaitė · Besikeičiantys namai", image: "../assets/ciklai/veliona/zurnalas/veliona-savaite-2.png" },
+  { title: "16 savaitė · Velionos 3 savaitė · Tarp pabaigos ir pradžios", image: "../assets/ciklai/veliona/zurnalas/veliona-savaite-3.png" },
+  { title: "17 savaitė · Velionos 4 savaitė · Žiemos atramos", image: "../assets/ciklai/veliona/zurnalas/veliona-savaite-4.png" },
+  { title: "18 savaitė · Laimos 1 savaitė · Namai pradeda laukti", image: "../assets/ciklai/laima/zurnalas/laima-savaite-1.png" },
+  { title: "19 savaitė · Laimos 2 savaitė · Jaukus vakaras drauge", image: "../assets/ciklai/laima/zurnalas/laima-savaite-2.png" },
+  { title: "20 savaitė · Laimos 3 savaitė · Šventė tavo rankose", image: "../assets/ciklai/laima/zurnalas/laima-savaite-3.png" }
 ];
 
 const supplements = [
@@ -24,7 +31,10 @@ const supplements = [
   { title: "Austėjos priedas 4", image: "assets/priedas-4.png" },
   { title: "Medeinos priedas 1", image: "assets/medeina-priedas-1.png" },
   { title: "Medeinos priedas 2", image: "assets/medeina-priedas-2.png" },
-  { title: "Medeinos priedas 3", image: "assets/medeina-priedas-3.png" }
+  { title: "Medeinos priedas 3", image: "assets/medeina-priedas-3.png" },
+  { title: "Kalėdinis brandintas pyragas", image: "../assets/ciklai/laima/priedai/brandintas-pyragas.png" },
+  { title: "Laimos vakaro tradiciniai žaidimai", image: "../assets/ciklai/laima/priedai/tradiciniai-zaidimai.png" },
+  { title: "Laimos lėlytės rišimo instrukcija", image: "../assets/ciklai/laima/priedai/laimos-lelyte.png" }
 ];
 
 const previewMode =
@@ -48,6 +58,8 @@ const cycleLabel = document.querySelector("#cycle-label");
 const readerLabel = document.querySelector("#reader");
 const austejaBook = document.querySelector("#austeja-book");
 const medeinaBook = document.querySelector("#medeina-book");
+const velionaBook = document.querySelector("#veliona-book");
+const medeinaCards = document.querySelector("#medeina-cards");
 const releaseNote = document.querySelector("#release-note");
 const prevWeek = document.querySelector("#prev-week");
 const nextWeek = document.querySelector("#next-week");
@@ -68,7 +80,16 @@ let touchStartX = null;
 let suppressImageClick = false;
 
 function visibleSupplements() {
-  return currentWeek >= 7 ? supplements.slice(4) : supplements.slice(0, 4);
+  if (currentWeek >= 13) return supplements.slice(7);
+  if (currentWeek >= 7) return supplements.slice(4, 7);
+  return supplements.slice(0, 4);
+}
+
+function getCycle(index) {
+  if (index >= 17) return { name: "Laimos", label: "Laimos laikas", book: "veliona" };
+  if (index >= 13) return { name: "Velionos", label: "Velionos laikas", book: "veliona" };
+  if (index >= 7) return { name: "Medeinos", label: "Medeinos laikas", book: "medeina" };
+  return { name: "Austėjos", label: "Austėjos laikas", book: "austeja" };
 }
 
 const requestedWeek = Number.parseInt(new URLSearchParams(location.search).get("savaite"), 10);
@@ -98,18 +119,26 @@ function showLaunchState() {
 
 function renderWeek() {
   const page = weeks[currentWeek];
-  const isMedeina = currentWeek >= 7;
-  if (cycleLabel) cycleLabel.textContent = isMedeina ? "Medeinos laikas" : "Austėjos laikas";
-  if (readerLabel) readerLabel.setAttribute("aria-label", `${isMedeina ? "Medeinos" : "Austėjos"} savaičių žurnalas`);
+  const cycle = getCycle(currentWeek);
+  if (cycleLabel) cycleLabel.textContent = cycle.label;
+  if (readerLabel) readerLabel.setAttribute("aria-label", `${cycle.name} savaičių žurnalas`);
   if (austejaBook) {
-    austejaBook.hidden = isMedeina;
-    austejaBook.style.display = isMedeina ? "none" : "";
+    austejaBook.hidden = cycle.book !== "austeja";
+    austejaBook.style.display = cycle.book === "austeja" ? "" : "none";
   }
   if (medeinaBook) {
-    medeinaBook.hidden = !isMedeina;
-    medeinaBook.style.display = isMedeina ? "" : "none";
+    medeinaBook.hidden = cycle.book !== "medeina";
+    medeinaBook.style.display = cycle.book === "medeina" ? "" : "none";
   }
-  document.title = `Laumijos žurnalas · ${isMedeina ? "Medeinos laikas" : "Austėjos laikas"}`;
+  if (velionaBook) {
+    velionaBook.hidden = cycle.book !== "veliona";
+    velionaBook.style.display = cycle.book === "veliona" ? "" : "none";
+  }
+  if (medeinaCards) {
+    medeinaCards.hidden = cycle.book !== "medeina";
+    medeinaCards.style.display = cycle.book === "medeina" ? "" : "none";
+  }
+  document.title = `Laumijos žurnalas · ${cycle.label}`;
   loading.hidden = false;
   weekImage.onload = () => { loading.hidden = true; };
   weekImage.src = page.image;
@@ -136,8 +165,8 @@ function moveWeek(direction) {
 function renderSupplement() {
   const pages = visibleSupplements();
   const page = pages[currentSupplement];
-  const isMedeina = currentWeek >= 7;
-  if (supplementCycle) supplementCycle.textContent = isMedeina ? "Medeinos laikas" : "Austėjos laikas";
+  const cycle = getCycle(currentWeek);
+  if (supplementCycle) supplementCycle.textContent = cycle.label;
   supplementImage.src = page.image;
   supplementImage.alt = `${page.title} – Laumijos žurnalo priedas`;
   supplementTitle.textContent = page.title;
